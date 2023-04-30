@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Painel de Criação da Empresa</h1>
+  <h2>Criar Filme</h2>
+  <input type="text" name="name" placeholder="name">
+  <input type="text" name="description" placeholder="description">
+  <input type="text" name="classification" placeholder="classification">
+  <input type="text" name="pictureUrl" placeholder="pictureUrl">
+  <button type="submit" onclick="createFilm()">Criar</button>
+  <h4 id="id_film">ID: </h4>
+  <br>
+  <br>
+  <h2>Criar Sessão</h2>
+  <input type="date" name="date" placeholder="date">
+  <input type="number" name="available_seats" placeholder="Available seats">
+  <input type="number" name="film_id" placeholder="film_id">
+  <button type="submit" onclick="createSession()">Criar</button>
+  <h4 id="id_session">ID: </h4>
+
+  <script>
+    function createFilm() {
+      const name = document.querySelector('input[name="name"]').value;
+      const description = document.querySelector('input[name="description"]').value;
+      const classification = document.querySelector('input[name="classification"]').value;
+      const pictureUrl = document.querySelector('input[name="pictureUrl"]').value;
+
+      fetch('/api/create-film', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name,
+          description,
+          classification,
+          pictureUrl
+        })
+      }).then(res => res.json())
+        .then(data => {
+          console.log(data);
+          document.querySelector('#id_film').innerHTML = `ID: ${data.film.film.id}`;
+        })
+    }
+    function createSession() {
+      const date = document.querySelector('input[name="date"]').value;
+      const availableSeats = document.querySelector('input[name="available_seats"]').value;
+      const filmId = document.querySelector('input[name="film_id"]').value;
+
+      fetch('/api/create-session', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          date,
+          availableSeats,
+          filmId
+        })
+      }).then(res => res.json())
+        .then(data => {
+          console.log(data);
+          document.querySelector('#id_session').innerHTML = `ID: ${data.session.film.id}`;
+        })
+    }
+  </script>
+</body>
+
+</html>

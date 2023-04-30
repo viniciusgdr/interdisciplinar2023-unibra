@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="/signup" method="POST">
+    <input type="text" name="username" placeholder="username"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <input type="text" name="cpf" placeholder="cpf" max="12" min="12"><br>
+    <input type="text" name="cep" placeholder="CEP" max="8" min="8"><br>
+
+    <input type="radio" id="gender" name="gender" value="male"><br>
+    <label for="html">Masculino</label><br>
+    <input type="radio" id="gender" name="gender" value="female"><br>
+    <label for="css">Feminino</label><br>
+
+    <input type="text" name="name" placeholder="Seu nome"><br>
+    <input type="date" name="birth_date" placeholder="Data de nascimento"><br>
+    <button type="submit">Signup</button>
+  </form>
+</body>
+
+</html>
