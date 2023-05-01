@@ -1,6 +1,6 @@
 import { type Router } from 'express'
 import { getFilmWithSessions, getFilms } from '../../utils/db'
-import { checkAuthenticated, setLoginRedirect } from '../../utils/passport'
+import { checkAuthenticated } from '../../utils/passport'
 
 export default (router: Router): void => {
   router.get('/', async (req, res) => {
@@ -16,7 +16,7 @@ export default (router: Router): void => {
     }
     res.render('film.ejs', { user: req.user, session: req.session, film: session.film, sessions: session.sessions })
   })
-  router.get('/checkout', setLoginRedirect, checkAuthenticated, async (req, res) => {
+  router.get('/checkout', checkAuthenticated, async (req, res) => {
     if (!req.query.filmId || !req.query.sessionId) {
       res.status(500)
       res.json({ error: 'Missing query params' })

@@ -10,7 +10,6 @@ export function setLoginRedirect (req: Request, res: Response, next: NextFunctio
   }
   // @ts-ignore
   req.session.redirectUrl = req.originalUrl || req.url
-  next()
 }
 export function getLoginRedirect (req: Request): string {
   // @ts-ignore
@@ -28,11 +27,12 @@ export function checkAuthenticated (req: Request, res: Response, next: NextFunct
     next()
     return
   }
+  setLoginRedirect(req, res, next)
   res.redirect('/login?redirect=' + req.originalUrl)
 }
 export function checkAdmin (req: Request, res: Response, next: NextFunction): void {
   const user = req.user as User
-  if (user.as_admin === 1) {
+  if (user?.as_admin === 1) {
     next()
     return
   }
