@@ -8,7 +8,7 @@ export default (router: Router): void => {
     res.render('index.ejs', { user: req.user, session: req.session, films })
   })
   router.get('/filme/:id', async (req, res) => {
-    const session = await getFilmWithSessions(Number(req.query.id))
+    const session = await getFilmWithSessions(Number(req.params.id))
     if (session.status === 404) {
       res.status(404)
       res.render('404.ejs', { user: req.user, session: req.session })

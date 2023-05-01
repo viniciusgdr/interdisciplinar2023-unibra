@@ -16,17 +16,14 @@ export interface Session {
 }
 export async function getFilmWithSessions (id: number): Promise<{
   status: number
-  film: Film
-  sessions: Session[]
+  film?: Film
+  sessions?: Session[]
 }> {
-  return await new Promise((resolve, reject) => {
+  return await new Promise((resolve) => {
     app.db.get('SELECT * FROM film WHERE id = ?', [id], (_err, row: Film) => {
       if (_err ?? !row) {
-        // eslint-disable-next-line prefer-promise-reject-errors
-        reject({
-          status: 404,
-          film: {},
-          sessions: []
+        resolve({
+          status: 404
         })
       }
       app.db.all('SELECT * FROM session WHERE filmId = ?', [id], (_err2: any, rows: Session[]) => {
