@@ -33,7 +33,6 @@ export default (app: Express): void => {
         done(null, false, { message: 'Incorrect username.' }); return
       }
       const isPasswordCorrect = await bcrypt.compare(password, row.encrypted_password)
-      console.log('isPasswordCorrect', isPasswordCorrect)
       if (!isPasswordCorrect) {
         done(null, false, { message: 'Incorrect password.' }); return
       }

@@ -16,8 +16,10 @@ export interface Session {
 }
 export async function getFilmWithSessions (id: number): Promise<{
   status: number
-  film?: Film
-  sessions?: Session[]
+} | {
+  status: number
+  film: Film
+  sessions: Session[]
 }> {
   return await new Promise((resolve) => {
     app.db.get('SELECT * FROM film WHERE id = ?', [id], (_err, row: Film) => {

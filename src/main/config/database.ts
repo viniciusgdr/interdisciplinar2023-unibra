@@ -27,7 +27,7 @@ export function initDB (db: Database): void {
       filmId INTEGER,
       date DATETIME DEFAULT CURRENT_TIMESTAMP,
       hour TEXT NOT NULL DEFAULT '00:00',
-      available_seats INTEGER NOT NULL DEFAULT 100,
+      available_seats INTEGER NOT NULL DEFAULT 0,
       FOREIGN KEY (filmId) REFERENCES film(id)
     );
     `)

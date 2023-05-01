@@ -4,6 +4,7 @@ import app from '../config/app'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 import { type User } from '../../interfaces/user'
+import { getLoginRedirect } from '../../utils/passport'
 async function getUserByCredentials (email: string): Promise<{ status: number, user: User | null }> {
   return await new Promise((resolve) => {
     app.db.get('SELECT * FROM user WHERE email = ?', [email], (err, row: User) => {
@@ -62,10 +63,26 @@ export default (router: Router): void => {
     }
     res.render('login.ejs')
   })
-  router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  }))
+  router.post('/login', async (req, res, next) => {
+    passport.authenticate('local', async (err: any, user: User) => {
+      if (err) {
+        res.status(500).send({ message: 'Internal server error.' })
+        return
+      }
+      if (!user) {
+        res.status(401).send({ message: 'Invalid credentials.' })
+        return
+      }
+      const loginRedirect = getLoginRedirect(req)
+      req.logIn(user, (err) => {
+        if (err) {
+          res.status(500).send({ message: 'Internal server error.' })
+          return
+        }
+        res.redirect(loginRedirect)
+      })
+    })(req, res, next)
+  })
   router.get('/signup', (req, res) => {
     if (req.isAuthenticated()) {
       res.redirect('/')

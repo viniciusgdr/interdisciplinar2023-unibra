@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= film.name %></title>
+</head>
+<body>
+  <% if (film && user && session) { %>
+      <h2>Falta pouco para você conseguir o seu Ingresso!</h2>
+      <h2>Titulo: <%= film.name %></h2>
+
+      <div class="container-seats-canvas">
+        <div class="seats-canvas">
+          <div class="seats-canvas__screen">
+            <p>Tela</p>
+          </div>
+          <div class="seats-canvas__seats">
+            <div class="seats-canvas__seats__seat">
+              <p>A</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>B</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>C</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>D</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>E</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>F</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>G</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>H</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>I</p>
+            </div>
+            <div class="seats-canvas__seats__seat">
+              <p>J</p>
+            </div>
+          </div>
+        </div>
+        <div class="seats-canvas__legend">
+          <div class="seats-canvas__legend__seat">
+            <div class="seats-canvas__legend__seat__available"></div>
+            <p>Disponível</p>
+          </div>
+          <div class="seats-canvas__legend__seat">
+            <div class="seats-canvas__legend__seat__unavailable"></div>
+            <p>Indisponível</p>
+          </div>
+          <div class="seats-canvas__legend__seat">
+            <div class="seats-canvas__legend__seat__selected"></div>
+            <p>Selecionado</p>
+          </div>
+        </div>
+      </div>
+  <% } else { %> 
+    <p>Not found</p>
+  <% } %>
+</body>
+</html>
