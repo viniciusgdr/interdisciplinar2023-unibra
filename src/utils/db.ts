@@ -77,6 +77,9 @@ export async function getFilmsWithSessions (): Promise<Array<{
           }
         })
       }
+      if (rows.length === 0) {
+        resolve(films)
+      }
     })
   })
 }
