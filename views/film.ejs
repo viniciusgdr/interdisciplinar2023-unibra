@@ -18,7 +18,7 @@
         <li>
           <p>Data: <%= sessions[i].date %> (<%= sessions[i].hour %>)</p>
           <p>Assentos Disponíveis: <%= sessions[i].available_seats %></p>
-          <a href="/film/<%= film.id %>/buy/<%= sessions[i].id %>">Comprar</a>
+          <a href="/checkout/?filmId=<%= film.id %>&sessionId=<%= sessions[i].id %>">Comprar</a>
         </li>
       <% } %>
     </ul>
