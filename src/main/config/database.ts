@@ -50,7 +50,7 @@ export function initDB (db: Database): void {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         userId INTEGER,
         sessionId INTEGER,
-        seat INTEGER,
+        seats TEXT,
         CREATED_AT DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (userId) REFERENCES user(id),
         FOREIGN KEY (sessionId) REFERENCES session(id)

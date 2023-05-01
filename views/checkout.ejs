@@ -93,7 +93,7 @@
       <input type="hidden" name="filmId" value="<%= film.id %>">
       <input type="hidden" name="sessionId" value="<%= session.id %>">
       <input type="hidden" name="dependents" value="">
-      <input type="hidden" name="seats" value="">
+      <input type="hidden" name="seats" id="seatsForm" value="">
       <button type="submit">Finalizar</button>
     </form>
     <% } else { %>
@@ -132,20 +132,22 @@
           });
         </script>
         <script>
+          // Add seats on request
           const seatsList = document.getElementById('seatsList');
           const seats = [];
-          seatsList.addEventListener('change', (event) => {
-            const seat = event.target.value;
-            if (event.target.checked) {
-              seats.push(seat);
-            } else {
-              const index = seats.indexOf(seat);
-              seats.splice(index, 1);
+          const seatsForm = document.getElementById('seatsForm');
+          seatsList.addEventListener('click', (event) => {
+            const seat = event.target;
+            if (seat.tagName === 'INPUT') {
+              const seatValue = seat.value;
+              if (seat.checked) {
+                seats.push(seatValue);
+              } else {
+                const index = seats.indexOf(seatValue);
+                seats.splice(index, 1);
+              }
+              seatsForm.value = JSON.stringify(seats);
             }
-            console.log(seats)
-            const seatsInput = document.querySelector('input[name="seats"]');
-            seatsInput.value = JSON.stringify(seats);
-            console.log(seatsInput.value)
           });
         </script>
 </body>
