@@ -10,10 +10,14 @@
   User: <%= user %><br>
   Session: <%= session.id %>
   <br>
-  <a href="/logout">Logout</a>
-  <a href="/dashboard">Dashboard</a>
-  <a href="/login">Login</a>
-  <a href="/signup">SignUp</a>
+  <% if (user) { %>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+  <% } else { %>  
+    <a href="/login">Login</a>
+    <a href="/signup">SignUp</a>
+  <% } %>
+
 
   <br>
   <br>

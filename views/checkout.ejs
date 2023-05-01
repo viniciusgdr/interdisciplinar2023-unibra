@@ -1,71 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= film.name %></title>
+  <title>
+    <%= film.name %>
+  </title>
 </head>
+
 <body>
   <% if (film && user && session) { %>
-      <h2>Falta pouco para você conseguir o seu Ingresso!</h2>
-      <h2>Titulo: <%= film.name %></h2>
+    <h2>Falta pouco para você conseguir o seu Ingresso!</h2>
+    <h2>Titulo: <%= film.name %>
+        <h3>
+          <%= session.date %> • <%= session.hour %>
+        </h3>
+    </h2>
 
-      <div class="container-seats-canvas">
-        <div class="seats-canvas">
-          <div class="seats-canvas__screen">
-            <p>Tela</p>
-          </div>
-          <div class="seats-canvas__seats">
-            <div class="seats-canvas__seats__seat">
-              <p>A</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>B</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>C</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>D</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>E</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>F</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>G</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>H</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>I</p>
-            </div>
-            <div class="seats-canvas__seats__seat">
-              <p>J</p>
-            </div>
-          </div>
+    <div class="container-seats-canvas">
+      <div class="seats-canvas">
+        <div class="seats-canvas__screen">
+          <p>Tela</p>
         </div>
-        <div class="seats-canvas__legend">
-          <div class="seats-canvas__legend__seat">
-            <div class="seats-canvas__legend__seat__available"></div>
-            <p>Disponível</p>
+        <div class="seats-canvas__seats">
+          <div class="seats-canvas__seats__seat">
+            <p>A</p>
           </div>
-          <div class="seats-canvas__legend__seat">
-            <div class="seats-canvas__legend__seat__unavailable"></div>
-            <p>Indisponível</p>
+          <div class="seats-canvas__seats__seat">
+            <p>B</p>
           </div>
-          <div class="seats-canvas__legend__seat">
-            <div class="seats-canvas__legend__seat__selected"></div>
-            <p>Selecionado</p>
+          <div class="seats-canvas__seats__seat">
+            <p>C</p>
+          </div>
+          <div class="seats-canvas__seats__seat">
+            <p>D</p>
+          </div>
+          <div class="seats-canvas__seats__seat">
+            <p>E</p>
           </div>
         </div>
       </div>
-  <% } else { %> 
-    <p>Not found</p>
-  <% } %>
+    </div>
+    <div class="seats-canvas__legend">
+      <div class="seats-canvas__legend__seat">
+        <div class="seats-canvas__legend__seat__available"></div>
+        <p>Disponível</p>
+      </div>
+      <div class="seats-canvas__legend__seat">
+        <div class="seats-canvas__legend__seat__unavailable"></div>
+        <p>Indisponível</p>
+      </div>
+      <div class="seats-canvas__legend__seat">
+        <div class="seats-canvas__legend__seat__selected"></div>
+        <p>Selecionado</p>
+      </div>
+    </div>
+    </div>
+    <div>
+      <h4>Informação do Participante</h4>
+      <div>
+        <p>Nome: <%= user.name %>
+        </p>
+        <p>Email: <%= user.email %>
+        </p>
+      </div>
+    </div>
+    <div>
+      <h2>Dependentes</h2>
+      <div id="dependentsList">
+        <div class="dependent">
+          <input type="text" name="name" placeholder="Nome">
+          <input type="text" name="relationship" placeholder="Relação">
+        </div>
+      </div>
+      <button id="addDependent">Adicionar Dependente</button>
+      <h2>Cadeiras</h2>
+      <p>Selecione as cadeiras que você deseja</p>
+      <div id="seatsList">
+        <div class="seat">
+          <input type="checkbox" name="seats" value="A1">
+          <label for="A1">A1</label>
+        </div>
+        <div class="seat">
+          <input type="checkbox" name="seats" value="A2">
+          <label for="A2">A2</label>
+        </div>
+      </div>
+    </div>
+    <form action="/checkout" method="POST">
+      <input type="hidden" name="filmId" value="<%= film.id %>">
+      <input type="hidden" name="sessionId" value="<%= session.id %>">
+      <input type="hidden" name="dependents" value="">
+      <input type="hidden" name="seats" value="">
+      <button type="submit">Finalizar</button>
+    </form>
+    <% } else { %>
+      <p>Not found</p>
+      <% } %>
+        <script>
+          const addDependent = document.getElementById('addDependent');
+          const dependentsList = document.getElementById('dependentsList');
+
+          addDependent.addEventListener('click', () => {
+            const dependent = document.createElement('div');
+            dependent.classList.add('dependent');
+            dependent.innerHTML = `
+            <input type="text" name="name" placeholder="Nome">
+            <input type="text" name="relationship" placeholder="Relação">
+            `;
+            dependentsList.appendChild(dependent);
+          });
+
+          const form = document.querySelector('form');
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const dependents = [];
+            const dependentsInputs = document.querySelectorAll('.dependent');
+            dependentsInputs.forEach((dependent) => {
+              const name = dependent.querySelector('input[name="name"]').value;
+              const relationship = dependent.querySelector('input[name="relationship"]').value;
+              dependents.push({
+                name,
+                relationship
+              });
+            });
+            const dependentsInput = document.querySelector('input[name="dependents"]');
+            dependentsInput.value = JSON.stringify(dependents);
+            form.submit();
+          });
+        </script>
+        <script>
+          const seatsList = document.getElementById('seatsList');
+          const seats = [];
+          seatsList.addEventListener('change', (event) => {
+            const seat = event.target.value;
+            if (event.target.checked) {
+              seats.push(seat);
+            } else {
+              const index = seats.indexOf(seat);
+              seats.splice(index, 1);
+            }
+            console.log(seats)
+            const seatsInput = document.querySelector('input[name="seats"]');
+            seatsInput.value = JSON.stringify(seats);
+            console.log(seatsInput.value)
+          });
+        </script>
 </body>
+
 </html>
