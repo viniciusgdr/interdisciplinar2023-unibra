@@ -57,7 +57,7 @@ async function createUser (email: string, password: string, cpf: string, cep: st
 export default (router: Router): void => {
   router.get('/login', (req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect('/dashboard')
+      res.redirect('/')
       return
     }
     res.render('login.ejs')
@@ -68,7 +68,7 @@ export default (router: Router): void => {
   }))
   router.get('/signup', (req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect('/dashboard')
+      res.redirect('/')
       return
     }
     res.render('signup.ejs')

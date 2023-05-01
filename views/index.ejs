@@ -7,7 +7,6 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Hello World!</h1>
   User: <%= user %><br>
   Session: <%= session.id %>
   <br>
@@ -15,5 +14,21 @@
   <a href="/dashboard">Dashboard</a>
   <a href="/login">Login</a>
   <a href="/signup">SignUp</a>
+
+  <br>
+  <br>
+  <div>
+    <h2>Filmes em Catálogo</h2>
+    <ul>
+      <% for (let i = 0; i < films.length; i++) { %>
+        <li>
+          <h3><%= films[i].name %></h3>
+          <a href="/film/<%= films[i].id %>">
+            <img src="<%= films[i].picture_url %>" alt="" width="200" height="400">
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
 </body>
 </html>

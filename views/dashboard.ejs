@@ -10,7 +10,16 @@
 
 <body>
   <h1>Painel de Criação da Empresa</h1>
-  <p><%= JSON.stringify(films, null, 2) %></p>
+  <div>
+    <h3>Filmes</h3>
+    <ul>
+      <% for (let i = 0; i < films.length; i++) { %>
+        <li>
+          <h3><%= films[i].film.name %> (ID: <%= films[i].film.id %>)</h3>
+        </li>
+      <% } %>
+    </ul>
+  </div>
   <br>
   <h2>Criar Filme</h2>
   <input type="text" name="name" placeholder="name">
