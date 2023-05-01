@@ -1,15 +1,16 @@
 import { type Router } from 'express'
 import app from '../../config/app'
-import { getFilmWithSessions } from '../../../utils/db'
+import { getFilmWithSessions, getFilmsWithSessions } from '../../../utils/db'
 import { checkAuthenticated, checkAdmin } from '../../../utils/passport'
 
 export default (router: Router): void => {
-  router.get('/dashboard', checkAuthenticated, checkAdmin, (req, res) => {
-    res.render('dashboard.ejs', { user: req.user })
+  router.get('/dashboard', checkAuthenticated, checkAdmin, async (req, res) => {
+    const films = await getFilmsWithSessions()
+    res.render('dashboard.ejs', { user: req.user, films })
   })
   router.post('/api/create-session', checkAuthenticated, checkAdmin, (req, res) => {
-    const { filmId, date, availableSeats } = req.body
-    if (!filmId || !date || !availableSeats) {
+    const { filmId, date, availableSeats, hour } = req.body
+    if (!filmId || !date || !availableSeats || !hour) {
       res.json({
         status: 400,
         message: 'Missing parameters'
@@ -18,21 +19,25 @@ export default (router: Router): void => {
     }
     if (typeof filmId !== 'string' ||
       typeof date !== 'string' ||
-      typeof availableSeats !== 'string') {
+      typeof availableSeats !== 'string' ||
+      typeof hour !== 'string') {
       res.json({
         status: 400,
         message: 'Invalid parameters'
       })
       return
     }
+    const filmIdNumber = Number(filmId)
     app.db.run(`INSERT INTO session (
         filmId,
         date,
+        hour,
         available_seats)
-        VALUES (?, ?, ?);
+        VALUES (?, ?, ?, ?);
       `, [
-      Number(filmId),
+      filmIdNumber,
       date,
+      hour,
       Number(availableSeats)
     ], async function (err) {
       if (err) {
@@ -45,7 +50,7 @@ export default (router: Router): void => {
       res.json({
         status: 200,
         message: 'Session created successfully',
-        session: await getFilmWithSessions(this.lastID)
+        session: await getFilmWithSessions(filmIdNumber)
       })
     })
   })
@@ -58,7 +63,6 @@ export default (router: Router): void => {
       })
       return
     }
-    // check type
     if (typeof name !== 'string' ||
       typeof description !== 'string' ||
       typeof classification !== 'string' ||

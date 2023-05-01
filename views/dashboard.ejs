@@ -10,6 +10,8 @@
 
 <body>
   <h1>Painel de Criação da Empresa</h1>
+  <p><%= JSON.stringify(films, null, 2) %></p>
+  <br>
   <h2>Criar Filme</h2>
   <input type="text" name="name" placeholder="name">
   <input type="text" name="description" placeholder="description">
@@ -21,6 +23,7 @@
   <br>
   <h2>Criar Sessão</h2>
   <input type="date" name="date" placeholder="date">
+  <input type="time" name="hour" placeholder="hour">
   <input type="number" name="available_seats" placeholder="Available seats">
   <input type="number" name="film_id" placeholder="film_id">
   <button type="submit" onclick="createSession()">Criar</button>
@@ -55,6 +58,7 @@
       const date = document.querySelector('input[name="date"]').value;
       const availableSeats = document.querySelector('input[name="available_seats"]').value;
       const filmId = document.querySelector('input[name="film_id"]').value;
+      const hour = document.querySelector('input[name="hour"]').value;
 
       fetch('/api/create-session', {
         method: 'POST',
@@ -65,7 +69,8 @@
         body: JSON.stringify({
           date,
           availableSeats,
-          filmId
+          filmId,
+          hour
         })
       }).then(res => res.json())
         .then(data => {

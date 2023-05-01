@@ -9,8 +9,19 @@
 <body>
   <h1>Hello World!</h1>
   <% if (film) { %>
-    <h2><%= film.title %></h2>
-    <p><%= film.description %></p>
+    <h2>Titulo: <%= film.name %></h2>
+    <p>Descrição: <%= film.description %></p>
+    <img src="<%= film.picture_url %>" alt="" width="200" height="400">
+
+    <h2>Sessões</h2>
+    <ul>
+      <% for (let i = 0; i < sessions.length; i++) { %>
+        <li>
+          <p>Data: <%= sessions[i].date %> (<%= sessions[i].hour %>)</p>
+          <p>Assentos Disponíveis: <%= sessions[i].available_seats %></p>
+        </li>
+      <% } %>
+    </ul>
   <% } else { %>
     <p>Not found</p>
   <% } %>

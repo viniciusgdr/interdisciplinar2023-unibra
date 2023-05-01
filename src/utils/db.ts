@@ -22,6 +22,10 @@ export async function getFilmWithSessions (id: number): Promise<{
   return await new Promise((resolve) => {
     app.db.get('SELECT * FROM film WHERE id = ?', [id], (_err, row: Film) => {
       app.db.all('SELECT * FROM session WHERE filmId = ?', [id], (_err2: any, rows: Session[]) => {
+        if (_err ?? _err2) {
+          console.error(_err)
+          console.error(_err2)
+        }
         resolve({
           status: 200,
           film: row,
@@ -38,6 +42,34 @@ export async function getFilms (): Promise<Film[]> {
         console.error(err)
       }
       resolve(rows)
+    })
+  })
+}
+export async function getFilmsWithSessions (): Promise<Array<{
+  film: Film
+  sessions: Session[]
+}>> {
+  return await new Promise((resolve) => {
+    const films: Array<{
+      film: Film
+      sessions: Session[]
+    }> = []
+    app.db.all('SELECT * FROM film', (_err, rows: Film[]) => {
+      for (const row of rows) {
+        app.db.all('SELECT * FROM session WHERE filmId = ?', [row.id], (_err2: any, rows2: Session[]) => {
+          if (_err ?? _err2) {
+            console.error(_err)
+            console.error(_err2)
+          }
+          films.push({
+            film: row,
+            sessions: rows2
+          })
+          if (films.length === rows.length) {
+            resolve(films)
+          }
+        })
+      }
     })
   })
 }
