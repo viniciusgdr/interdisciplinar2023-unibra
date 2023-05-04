@@ -1,0 +1,57 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;   
+   font-family: 'Poppins', sans-serif;
+   border: none;
+}
+.section-main{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: start;
+   height: 100vh;
+   background-color: #1b222c;
+}
+.nav-bar{
+   width: 1000px;
+   max-width: 90%;
+   height: 10vh;
+   display: flex;
+   flex-wrap: nowrap;
+   align-items: center;
+   justify-content: center;
+   background: #111827;
+   padding: 20px;
+   margin: 10px;
+   border-radius: 18px;
+   font-size: larger;
+}
+.logo h1{
+   background-image: linear-gradient(to right, rgb(228, 255, 60), steelblue, rgb(224, 221, 64));
+   color: black;
+   background-clip: text;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   width: 150px;
+}
+.titulo-nav{
+   text-align: center;
+   color: #cbcfd8;
+   width: 350px;
+}
+.img-prefeitura{
+   display: flex;
+   text-align: center;
+}
+.img-prefeitura img{
+   height: 40px;
+}
+
+.container{
+   background-color: #111827;
+   display: flex;
+   height: 80%;
+   width: 982px;
+   border-radius: 5px;
+}

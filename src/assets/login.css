@@ -1,0 +1,39 @@
+.container{
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+
+.container form{
+   display: flex ;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   width: 500px;
+}
+.container label{
+   color: white;
+   width:70%;
+
+}
+.container input{
+   background-color: #313131;
+   margin: 25px;
+   width: 70%;
+   border-radius: 10px;
+   height: 40px;
+}
+.container button{
+   margin-top: 50px;
+   border-radius: 20px;
+   height: 35px;
+   width: 150px;
+   background-image: linear-gradient(120deg, rgba(229, 255, 60, 0.6), rgba(70, 131, 180, 0.6));
+   border: 2px solid black;
+   color: black;
+   font-size: 20px;
+}
+
+.container button:hover{
+   scale: 1.1;
+}

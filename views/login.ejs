@@ -1,16 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>cinema para todos</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"> </script>
+  <link rel="stylesheet" href="../src/assets/global.css">
+  <link rel="stylesheet" href="../src/assets/login.css">
+
+  <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
+  <title>UX Cine</title>
 </head>
 <body>
-  <form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button type="submit">Login</button>
-  </form> 
+
+
+   <main class="section-main">
+
+      <nav class="nav-bar">
+               
+         <div class="logo">
+            <h1>UxCine</h1>
+         </div>
+
+         <!-- <div class="titulo-nav">
+            <h1 class="titulo">Login</h1>
+         </div> -->
+
+         <a  href="https://www2.recife.pe.gov.br/" target="__blank" class="img-prefeitura"><img src="../src/assets/img/logo2.png" alt=""></a>
+      </nav>
+
+      <section class="container">
+
+        <form action="/login" method="POST" class="input-form">
+          <label for="username">Digite o seu usuário:</label>
+          <input type="text" name="username" placeholder=" username">
+          <label for="password">Digite a sua senha:</label>
+          <input type="password" name="password" placeholder=" password">
+          <button type="submit">Login</button>
+        </form> 
+
+      </section>
+
+
+  </main>
+
 </body>
 </html>
