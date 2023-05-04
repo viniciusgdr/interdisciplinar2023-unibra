@@ -4,13 +4,13 @@
    box-sizing: border-box;   
    font-family: 'Poppins', sans-serif;
    border: none;
+   color: white;
 }
 .section-main{
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: start;
-   height: 100vh;
    background-color: #1b222c;
 }
 .nav-bar{
@@ -51,7 +51,42 @@
 .container{
    background-color: #111827;
    display: flex;
-   height: 80%;
+   height: 1250px;
    width: 982px;
+   flex-direction: column;
    border-radius: 5px;
+}
+
+.container form{
+   display: flex ;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+.container label{
+   color: white;
+
+}
+.container input{
+   margin: 15px;
+   background-color: #313131;
+   border-radius: 10px;
+   height: 40px;
+}
+.container button{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 50px;
+   border-radius: 20px;
+   padding: 20px;
+   height: 35px;
+   background-image: linear-gradient(120deg, rgba(229, 255, 60, 0.6), rgba(70, 131, 180, 0.6));
+   border: 2px solid black;
+   color: black;
+   font-size: 20px;
+}
+
+.container button:hover{
+   scale: 1.1;
 }
